@@ -48,5 +48,6 @@ if __name__ == '__main__':
   mirror = Mirror()
   mlp = MLP(mirror, hidden = 5)
   mlp.train(epoch = 10000)
-  mlp.error_graph()
   mlp.predict()
+  mlp.error_graph()
+  mlp.decision_boundary()

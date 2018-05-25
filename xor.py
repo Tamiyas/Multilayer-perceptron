@@ -24,6 +24,7 @@ class XOR:
 if __name__ == '__main__':
   xor = XOR()
   mlp = MLP(xor, hidden = 2)
-  mlp.train(epoch = 10000)
-  mlp.error_graph()
+  mlp.train(epoch = 15000)
   mlp.predict()
+  mlp.error_graph()
+  mlp.decision_boundary()

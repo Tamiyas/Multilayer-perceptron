@@ -155,7 +155,7 @@ class MLP:
     """
     if z >= 0.9:
       return 1
-    elif z <= 0.05:
+    elif z <= 0.1:
       return 0
     else:
       return z
@@ -170,4 +170,28 @@ class MLP:
     if title is not None:
       plt.savefig(title)
     plt.show()
-    plt.clf()
+
+  def decision_boundary(self, step = 0.02, color = 'blue'):
+    """決定境界をプロットする関数.
+    """
+    if(self.X.shape[1] != 2):
+      return
+    (x_min, x_max) = (self.X[:, 0].min() - 0.5, self.X[:, 0].max() + 0.5)
+    (y_min, y_max) = (self.X[:, 1].min() - 0.5, self.X[:, 1].max() + 0.5)
+    # 格子点の作成
+    (xx, yy) = np.meshgrid(np.arange(x_min, x_max, step), np.arange(y_min, y_max, step))
+    X = np.c_[xx.ravel(), yy.ravel()]
+
+    Z = np.zeros(X.shape[0])
+    for index, point in enumerate(X):
+      z, _ = self.forward(point)
+      Z[index] = self.threshold(z)
+
+    Z = np.reshape(Z, xx.shape)
+    plt.xlim(x_min, x_max)
+    # 境界面のプロット
+    plt.contourf(xx, yy, Z, cmap = plt.cm.Spectral, alpha = 0.8)
+    # 入力データのプロット
+    plt.scatter(self.X[:, 0], self.X[:, 1], c = self.Y[:, 0], cmap = plt.cm.Spectral, s = 15)
+    plt.colorbar()
+    plt.show()

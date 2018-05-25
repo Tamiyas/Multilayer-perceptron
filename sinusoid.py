@@ -78,11 +78,10 @@ class Sinusoid():
 
 if __name__ == '__main__':
   sinusoid = Sinusoid()
-  input, train = sinusoid.get()
-
-  sinusoid.plot_artificial_data()
-
   mlp = MLP(sinusoid, hidden = 15)
-  mlp.train(epoch = 10000)
-  mlp.error_graph()
+  mlp.train(epoch = 15000)
   mlp.predict()
+  mlp.error_graph()
+  domain = np.array(np.linspace(-6.5, 6.5))
+  plt.plot(domain, np.sin(np.pi * domain / 2), lw = 1.5, color = 'black')
+  mlp.decision_boundary()
