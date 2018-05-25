@@ -125,12 +125,12 @@ class MLP:
     """
     return 0.5 * (Z - Y) ** 2
 
-  def predict(self, data):
+  def predict(self):
     """学習したモデルを使って予測する関数.
     Args:
       data: 学習データ.
     """
-    (X, Y) = data.get()
+    (X, Y) = (self.X, self.Y)
     N = X.shape[0]
     Correct = 0
 

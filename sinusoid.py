@@ -85,4 +85,4 @@ if __name__ == '__main__':
   mlp = MLP(sinusoid, hidden = 15)
   mlp.train(epoch = 10000)
   mlp.error_graph()
-  mlp.predict(sinusoid)
+  mlp.predict()
