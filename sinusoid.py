@@ -14,6 +14,7 @@ class Sinusoid():
       self.input = self.generate_noise(domain, ylim, num)
     else:
       self.input = self.generate_no_noise(domain, ylim, num)
+
     self.train = self.check_input()
 
   def get(self):
@@ -24,7 +25,7 @@ class Sinusoid():
     return (self.input, self.train)
 
   def generate_noise(self, domain, ylim, num):
-    """ノイズデータを作成してinputに格納する.
+    """ノイズデータを作成する.
     Args:
       domain: 定義域.
       ylim: 値域.
@@ -38,6 +39,14 @@ class Sinusoid():
     return np.c_[domain, image]
 
   def generate_no_noise(self, domain, ylim, num):
+    """ノイズなしデータを作成する.
+    Args:
+      domain: 定義域.
+      ylim: 値域.
+      num:  入力データ数.
+    Returns:
+      ノイズなしデータ.
+    """
     x = np.random.choice(domain, num, replace = False)
     above = np.array(np.sin(np.pi * x[:50] / 2) + 0.9)
     below = np.array(np.sin(np.pi * x[50:] / 2) - 0.9)
@@ -56,18 +65,24 @@ class Sinusoid():
     image = np.array(self.input[:,1] > sinusoid, dtype=int)
     return np.reshape(image, (domain.shape[0], 1))
 
+  def plot_artificial_data(self, xlim = (-6, 6), ylim = (-1.5, 1.5), num = 100):
+    """作成した入力データをグラフでプロットする.
+    """
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+    for point in self.input:
+      plt.scatter(point[0], point[1], c = 'lightgreen')
+    domain = np.array(np.linspace(xlim[0], xlim[1], num))
+    plt.plot(domain, np.sin(np.pi * domain / 2))
+    plt.show()
 
 if __name__ == '__main__':
   sinusoid = Sinusoid()
   input, train = sinusoid.get()
 
+  sinusoid.plot_artificial_data()
+
   mlp = MLP(sinusoid, hidden = 15)
   mlp.train(epoch = 10000)
   mlp.error_graph()
   mlp.predict(sinusoid)
-  # for i in input:
-  #   plt.scatter(i[0], i[1], c='lightgreen')
-  # plt.xlim(-6, 6)
-  # domain = np.array(np.linspace(-6, 6, 100))
-  # plt.plot(domain, np.sin(np.pi * domain / 2))
-  # plt.show()
