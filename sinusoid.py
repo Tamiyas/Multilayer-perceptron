@@ -48,8 +48,8 @@ class Sinusoid():
       ノイズなしデータ.
     """
     x = np.random.choice(domain, num, replace = False)
-    above = np.array(np.sin(np.pi * x[:50] / 2) + 0.9)
-    below = np.array(np.sin(np.pi * x[50:] / 2) - 0.9)
+    above = np.array(np.sin(np.pi * x[:num // 2] / 2) + 0.9)
+    below = np.array(np.sin(np.pi * x[num // 2:] / 2) - 0.9)
     image = np.r_[above, below]
 
     return np.c_[x, image]
