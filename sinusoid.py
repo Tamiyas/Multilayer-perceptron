@@ -38,7 +38,12 @@ class Sinusoid():
     return np.c_[domain, image]
 
   def generate_no_noise(self, domain, ylim, num):
-    
+    x = np.random.choice(domain, num, replace = False)
+    above = np.array(np.sin(np.pi * x[:50] / 2) + 0.9)
+    below = np.array(np.sin(np.pi * x[50:] / 2) - 0.9)
+    image = np.r_[above, below]
+
+    return np.c_[x, image]
 
   def check_input(self):
     """入力データが正弦関数sin(pi / 2)の上にあるかどうかを判定する.
@@ -55,12 +60,14 @@ class Sinusoid():
 if __name__ == '__main__':
   sinusoid = Sinusoid()
   input, train = sinusoid.get()
+
   mlp = MLP(sinusoid, hidden = 15)
-  mlp.train(epoch = 30000)
+  mlp.train(epoch = 10000)
   mlp.error_graph()
   mlp.predict(sinusoid)
   # for i in input:
   #   plt.scatter(i[0], i[1], c='lightgreen')
   # plt.xlim(-6, 6)
-  # plt.plot(input[:,0], np.sin(np.pi * input[:,0] / 2))
+  # domain = np.array(np.linspace(-6, 6, 100))
+  # plt.plot(domain, np.sin(np.pi * domain / 2))
   # plt.show()
