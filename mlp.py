@@ -11,6 +11,8 @@ References:
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+from pathlib import Path
+from datetime import datetime
 
 class MLP:
   """3層パーセプトロン.
@@ -160,18 +162,19 @@ class MLP:
     else:
       return z
 
-  def error_graph(self, title = None):
+  def error_graph(self, save_dir = 'figure'):
     """損失関数の推移をグラフで描画する.
     Args:
       title:  グラフを図として保存するときのタイトル.
     """
     plt.ylim(0.0, self.error.max() + 1.0)
     plt.plot(np.arange(0, len(self.error)), self.error)
-    if title is not None:
-      plt.savefig(title)
+    if Path(save_dir).exists() == False:
+      Path(save_dir).mkdir()
+    plt.savefig(self.file_name(save_dir + '/error_'))
     plt.show()
 
-  def decision_boundary(self, step = 0.02, color = 'blue'):
+  def decision_boundary(self, step = 0.02, color = 'blue', save_dir = 'figure'):
     """決定境界をプロットする関数.
     """
     if(self.X.shape[1] != 2):
@@ -194,4 +197,10 @@ class MLP:
     # 入力データのプロット
     plt.scatter(self.X[:, 0], self.X[:, 1], c = self.Y[:, 0], cmap = plt.cm.Spectral, s = 15)
     plt.colorbar()
+    if Path(save_dir).exists() == False:
+      Path(save_dir).mkdir()
+    plt.savefig(self.file_name(save_dir + '/boundary_'))
     plt.show()
+
+  def file_name(self, prefix):
+    return prefix + datetime.now().strftime('%Y%m%d-%H%M%S.pdf')
