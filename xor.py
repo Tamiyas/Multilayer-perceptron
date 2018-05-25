@@ -3,12 +3,12 @@ from mlp import *
 class XOR:
   """XOR学習データ.
   Attributes:
-    data: 入力データ.
+    input: 入力データ.
     train:  教師データ.
   """
   def __init__(self):
     # XOR問題に使用する入力データと教師データを作成
-    self.data = np.array([[0, 0],
+    self.input = np.array([[0, 0],
                           [0, 1],
                           [1, 0],
                           [1, 1]])
@@ -19,7 +19,7 @@ class XOR:
     Returns:
       学習データ(入力データと教師データのタプル).
     """
-    return (self.data, self.train)
+    return (self.input, self.train)
 
 if __name__ == '__main__':
   xor = XOR()
