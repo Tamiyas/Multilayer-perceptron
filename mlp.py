@@ -165,7 +165,7 @@ class MLP:
   def error_graph(self, save_dir = 'figure'):
     """損失関数の推移をグラフで描画する.
     Args:
-      title:  グラフを図として保存するときのタイトル.
+      save_dir: グラフを保存するディレクトリ名.
     """
     plt.ylim(0.0, self.error.max() + 1.0)
     plt.plot(np.arange(0, len(self.error)), self.error)
@@ -174,8 +174,11 @@ class MLP:
     plt.savefig(self.file_name(save_dir + '/error_'))
     plt.show()
 
-  def decision_boundary(self, step = 0.02, color = 'blue', save_dir = 'figure'):
+  def decision_boundary(self, step = 0.02, save_dir = 'figure'):
     """決定境界をプロットする関数.
+    Args:
+      step: 座標のステップ数.
+      save_dir: グラフを保存するディレクトリ名.
     """
     if(self.X.shape[1] != 2):
       return
@@ -203,4 +206,10 @@ class MLP:
     plt.show()
 
   def file_name(self, prefix):
+    """現在時刻を含めたファイル名を返す関数.
+    Args:
+      prefix: 現在時刻の前に付ける名前.
+    Returns:
+      ファイル名.
+    """
     return prefix + datetime.now().strftime('%Y%m%d-%H%M%S.pdf')

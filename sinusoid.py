@@ -79,7 +79,7 @@ class Sinusoid():
 if __name__ == '__main__':
   sinusoid = Sinusoid()
   mlp = MLP(sinusoid, hidden = 15)
-  mlp.train(epoch = 15000)
+  mlp.train(epoch = 20000)
   mlp.predict()
   mlp.error_graph()
   domain = np.array(np.linspace(-6.5, 6.5))
