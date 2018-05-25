@@ -138,13 +138,22 @@ class MLP:
       x = X[i, :]
       y = Y[i, :]
       z, _ = self.forward(x)
-      c = np.round(z)
+      c = self.threshold(z)
       if c == y:
         Correct += 1
       print('入力 {0}, 正解 {1}: 出力 {2}'.format(x, y, z))
     print('W:\n', self.params['W'])
     print('S:\n', self.params['S'])
     print('Accuracy {:.2%}'.format(Correct / float(X.shape[0])))
+
+  def threshold(self, z):
+    """学習が成功しているかどうかをしきい値に従って判定する関数.
+    Args:
+      z:  出力信号.
+    Returns:
+      1 if 学習が成功 else 0
+    """
+    return 1 if z >= 0.9 else 0
 
   def error_graph(self, title = None):
     """損失関数の推移をグラフで描画する.
