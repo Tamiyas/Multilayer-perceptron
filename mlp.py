@@ -153,7 +153,12 @@ class MLP:
     Returns:
       1 if 学習が成功 else 0
     """
-    return 1 if z >= 0.9 else 0
+    if z >= 0.9:
+      return 1
+    elif z <= 0.05:
+      return 0
+    else:
+      return z
 
   def error_graph(self, title = None):
     """損失関数の推移をグラフで描画する.

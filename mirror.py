@@ -2,7 +2,7 @@ from mlp import *
 
 class Mirror():
   def __init__(self, column = 6):
-    """ミラーシンメトリ問題に使用する入力データと教師データを作成
+    """ミラーシンメトリ問題に使用する入力データと教師データを作成.
     Attributes:
       input: 入力データ.
       train:  教師データ.
@@ -11,7 +11,7 @@ class Mirror():
     self.train = self.check_symmetry()
 
   def get(self):
-    """学習データの作成
+    """学習データの作成.
     Returns:
       学習データ(入力データと教師データのタプル).
     """
@@ -20,7 +20,7 @@ class Mirror():
   def generate_mirror(self, column):
     """2進数列を作成してinputに格納する.
     Args:
-      column: ミラーシンメトリを作成する桁数
+      column: ミラーシンメトリを作成する桁数.
     Returns:
       2進数列
     """
@@ -30,7 +30,7 @@ class Mirror():
     return np.array([list(map(int, X)) for X in input])
 
   def check_symmetry(self):
-    """与えられた文字列が、左右対称かどうかを判定する
+    """与えられた文字列が、左右対称かどうかを判定する.
     Returns:
       教師データ.
     """
