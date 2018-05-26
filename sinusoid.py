@@ -3,17 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Sinusoid():
-  def __init__(self, xlim = (-6, 6), ylim = (-1.5, 1.5), num = 100, noise = True):
+  def __init__(self, xlim = (-6, 6), ylim = (-1.5, 1.5), num = 100, random = True):
     """ノイズが乗った正弦関数の入力データと教師データを作成.
     Attributes:
       input:  入力データ.
       train:  教師データ.
     """
     domain = np.array(np.linspace(xlim[0], xlim[1], num))
-    if(noise == True):
-      self.input = self.generate_noise(domain, ylim, num)
+    if(random == True):
+      self.input = self.generate_random(domain, ylim, num)
     else:
-      self.input = self.generate_no_noise(domain, ylim, num)
+      self.input = self.generate_no_random(domain, ylim, num)
 
     self.train = self.check_input()
 
@@ -24,8 +24,8 @@ class Sinusoid():
     """
     return (self.input, self.train)
 
-  def generate_noise(self, domain, ylim, num):
-    """ノイズデータを作成する.
+  def generate_random(self, domain, ylim, num):
+    """ノイズがランダムなデータを作成する.
     Args:
       domain: 定義域.
       ylim: 値域.
@@ -38,8 +38,8 @@ class Sinusoid():
 
     return np.c_[domain, image]
 
-  def generate_no_noise(self, domain, ylim, num):
-    """ノイズなしデータを作成する.
+  def generate_no_random(self, domain, ylim, num):
+    """ノイズがランダムでないデータを作成する.
     Args:
       domain: 定義域.
       ylim: 値域.
@@ -78,6 +78,7 @@ class Sinusoid():
 
 if __name__ == '__main__':
   sinusoid = Sinusoid()
+  # sinusoid = Sinusoid(random = False)
   mlp = MLP(sinusoid, hidden = 15)
   mlp.train(epoch = 20000)
   mlp.predict()
