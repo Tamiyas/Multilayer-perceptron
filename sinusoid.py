@@ -95,8 +95,8 @@ class Sinusoid():
 if __name__ == '__main__':
   sinusoid = Sinusoid()
   # sinusoid = Sinusoid(random = False)
-  mlp = MLP(sinusoid, hidden = 1)
-  mlp.train(epoch = 20000)
+  mlp = MLP(sinusoid, hidden = 15)
+  mlp.train(epoch = 15000)
   Z = mlp.predict()
   sinusoid.bias_variance(Z)
   mlp.error_graph()
