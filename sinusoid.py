@@ -76,12 +76,29 @@ class Sinusoid():
     plt.plot(domain, np.sin(np.pi * domain / 2))
     plt.show()
 
+  def bias_variance(self, Z):
+    """バイアスとバリアンスを計算する.
+    Args:
+      Z:  学習モデルの出力信号のベクトル.
+    """
+    (X, Y) = (self.input, self.train)
+    # バイアス(学習データと出力信号との差)を計算
+    bias = np.average((X[:, 1] - Z) ** 2)
+    # 分散(出力信号のバラつき)を計算
+    variance = np.var(Z)
+
+    print('Bias:{}'.format(bias))
+    print('Variance:{}'.format(variance))
+
+
+
 if __name__ == '__main__':
   sinusoid = Sinusoid()
   # sinusoid = Sinusoid(random = False)
-  mlp = MLP(sinusoid, hidden = 15)
+  mlp = MLP(sinusoid, hidden = 1)
   mlp.train(epoch = 20000)
-  mlp.predict()
+  Z = mlp.predict()
+  sinusoid.bias_variance(Z)
   mlp.error_graph()
   domain = np.array(np.linspace(-6.5, 6.5))
   plt.plot(domain, np.sin(np.pi * domain / 2), lw = 1.5, color = 'black')

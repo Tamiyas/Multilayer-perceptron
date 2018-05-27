@@ -133,13 +133,14 @@ class MLP:
       data: 学習データ.
     """
     (X, Y) = (self.X, self.Y)
-    N = X.shape[0]
+    Z = np.zeros(X.shape[0])
     Correct = 0
 
-    for i in range(N):
+    for i in range(X.shape[0]):
       x = X[i, :]
       y = Y[i, :]
       z, _ = self.forward(x)
+      Z[i] = z
       c = self.threshold(z)
       if c == y:
         Correct += 1
@@ -147,6 +148,8 @@ class MLP:
     print('W:\n', self.params['W'])
     print('S:\n', self.params['S'])
     print('Accuracy {:.2%}'.format(Correct / float(X.shape[0])))
+
+    return Z
 
   def threshold(self, z):
     """学習が成功しているかどうかをしきい値に従って判定する関数.
