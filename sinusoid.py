@@ -83,7 +83,7 @@ class Sinusoid():
     """
     (X, Y) = (self.input, self.train)
     # バイアス(学習データと出力信号との差)を計算
-    bias = np.average((X[:, 1] - Z) ** 2)
+    bias = np.average(X[:, 1] - Z) ** 2
     # 分散(出力信号のバラつき)を計算
     variance = np.var(Z)
 
