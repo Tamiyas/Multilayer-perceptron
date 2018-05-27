@@ -1,4 +1,5 @@
 from mlp import *
+from kNN import *
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -93,13 +94,19 @@ class Sinusoid():
 
 
 if __name__ == '__main__':
+  # sinusoid = Sinusoid()
+  # # sinusoid = Sinusoid(random = False)
+  # mlp = MLP(sinusoid, hidden = 15)
+  # mlp.train(epoch = 15000)
+  # Z = mlp.predict()
+  # sinusoid.bias_variance(Z)
+  # mlp.error_graph()
+  # domain = np.array(np.linspace(-6.5, 6.5))
+  # plt.plot(domain, np.sin(np.pi * domain / 2), lw = 1.5, color = 'black')
+  # mlp.decision_boundary()
   sinusoid = Sinusoid()
-  # sinusoid = Sinusoid(random = False)
-  mlp = MLP(sinusoid, hidden = 15)
-  mlp.train(epoch = 15000)
-  Z = mlp.predict()
-  sinusoid.bias_variance(Z)
-  mlp.error_graph()
+  knn = kNN(sinusoid, k = 2)
+  knn.predict()
   domain = np.array(np.linspace(-6.5, 6.5))
   plt.plot(domain, np.sin(np.pi * domain / 2), lw = 1.5, color = 'black')
-  mlp.decision_boundary()
+  knn.decision_boundary()

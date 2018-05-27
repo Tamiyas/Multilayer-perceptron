@@ -129,8 +129,6 @@ class MLP:
 
   def predict(self):
     """学習したモデルを使って予測する関数.
-    Args:
-      data: 学習データ.
     """
     (X, Y) = (self.X, self.Y)
     Z = np.zeros(X.shape[0])
