@@ -190,9 +190,9 @@ class MLP:
     X = np.c_[xx.ravel(), yy.ravel()]
 
     Z = np.zeros(X.shape[0])
-    for index, point in enumerate(X):
-      z, _ = self.forward(point)
-      Z[index] = np.round(z)
+    for i in tqdm(range(X.shape[0])):
+      z, _ = self.forward(X[i, :])
+      Z[i] = np.round(z)
 
     Z = np.reshape(Z, xx.shape)
     plt.xlim(x_min, x_max)
