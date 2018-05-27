@@ -191,7 +191,7 @@ class MLP:
     Z = np.zeros(X.shape[0])
     for index, point in enumerate(X):
       z, _ = self.forward(point)
-      Z[index] = self.threshold(z)
+      Z[index] = np.round(z)
 
     Z = np.reshape(Z, xx.shape)
     plt.xlim(x_min, x_max)
